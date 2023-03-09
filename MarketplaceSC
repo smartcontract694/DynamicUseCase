@@ -1,0 +1,117 @@
+// SPDX-License-Identifier: MIT OR Apache-2.0
+pragma solidity ^0.8.6;
+
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+import "hardhat/console.sol";
+import "./ComponentsNFT.sol";
+
+contract marketplace {
+
+
+address marketplace; //marketplace EA
+mapping(address=>bool) RegisteredOracles;
+mapping(address=>bool) RegisteredOEMs;
+mapping(address=>bool) RegisteredFMs;
+mapping (address=> address) componentsContracts;//address of each seller is mapped to address of SC
+//event
+event NewComponentsOEMContractAddedSuccessfully(address OEM, address OEMContract);
+event NFTransferredToNewOwner(address from, address to, uint tokenid);
+
+     constructor() {
+       marketplace= msg.sender;
+      
+    }
+   
+    modifier onlyMarketplace{
+      require(msg.sender == marketplace);
+      _;
+    }
+    
+    modifier onlyRegisteredFM{
+      require(RegisteredFMs[msg.sender]); 
+      _;
+    }
+
+    modifier onlyRegisteredOEM{
+      require(RegisteredOEMs[msg.sender]); 
+      _;
+    }
+    
+      modifier onlyRegisteredOracle{
+      require(RegisteredOracles[msg.sender]); 
+      _;
+    }
+    
+///////////////////////
+///Registration////
+//////////////////////
+ 
+   
+    //Supplier
+      function RegisterOEM(address a) onlyMarketplace public{
+          
+        RegisteredOEMs[a]=true;
+    }
+  
+    function RevokeOEM(address a) onlyMarketplace public{
+        RegisteredOEMs[a]=false;
+    }
+   
+    function RegisteredOEM(address a) public {
+        require(RegisteredOEMs[a]);
+    }
+     //FMs
+      function RegisterFM(address a) onlyMarketplace public{
+        RegisteredFMs[a]=true;
+    }
+   
+    function RevokeFM(address a) onlyMarketplace public{
+        RegisteredFMs[a]=false;
+    }
+   
+    function RegisteredFM(address a) public {
+        require(RegisteredFMs[a]);    
+       
+    }
+//Oracles
+    function RegisterOracle(address a) onlyMarketplace public{
+        RegisteredOracles[a]=true;
+    }
+
+    function RegisteredOracle(address a) public{
+        require(RegisteredOracles[a]);  
+    }
+ function RevokeOracle(address a) onlyMarketplace public{
+        RegisteredOracles[a]=false;
+    }
+
+function addChildren(address OEM, address OEMContract) public onlyMarketplace{
+    RegisteredOEM(OEM);//seller must be registered
+    componentsContracts[OEM] = OEMContract;
+    emit NewComponentsOEMContractAddedSuccessfully(OEM, OEMContract);
+}
+
+function BuyNFT(address OEM, uint256 tokenId, uint256 price) onlyRegisteredFM payable public
+{
+    assert(msg.value == (price * 1 ether));
+    address componentsContracts = componentsContracts[OEM];
+    //nf.setApprovalForAll(sellerContract, true);
+    payable(OEM).transfer(msg.value);
+    ComponentsNFT(componentsContracts).TransferNFTOwnership(tokenId, msg.sender);
+     //NFT(sellerContract).transferFrom(seller, msg.sender, tokenId);
+    emit NFTransferredToNewOwner(OEM, msg.sender, tokenId);
+}
+
+   
+//only registered Oracle
+  function UpdateDynamicNFTstatus(uint status , uint tokenId, address seller) onlyRegisteredOracle public{
+        address componentsContracts = componentsContracts[seller];
+        ComponentsNFT(componentsContracts).UpdateDynamicNFTstatus(status, tokenId);
+  }  
+
+  
+
+}
