@@ -1,0 +1,566 @@
+
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (Maintenance.sol#1640)
+        - inverse = (3 * denominator) ^ 2 (Maintenance.sol#1655)
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (Maintenance.sol#1640)
+        - inverse *= 2 - denominator * inverse (Maintenance.sol#1659)
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (Maintenance.sol#1640)
+        - inverse *= 2 - denominator * inverse (Maintenance.sol#1660)
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (Maintenance.sol#1640)
+        - inverse *= 2 - denominator * inverse (Maintenance.sol#1661)
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (Maintenance.sol#1640)
+        - inverse *= 2 - denominator * inverse (Maintenance.sol#1662)
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (Maintenance.sol#1640)
+        - inverse *= 2 - denominator * inverse (Maintenance.sol#1663)
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (Maintenance.sol#1640)
+        - inverse *= 2 - denominator * inverse (Maintenance.sol#1664)
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) performs a multiplication on the result of a division:
+        - prod0 = prod0 / twos (Maintenance.sol#1643)
+        - result = prod0 * inverse (Maintenance.sol#1670)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
+
+ERC721._checkOnERC721Received(address,address,uint256,bytes) (Maintenance.sol#2925-2947) ignores return value by IERC721Receiver(to).onERC721Received(_msgSender(),from,tokenId,data) (Maintenance.sol#2932-2943)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+
+ComponentsNFT.mintNFT(string,uint256,bytes32,uint256,bool).tokenURI (Maintenance.sol#3190) shadows:
+        - ERC721URIStorage.tokenURI(uint256) (Maintenance.sol#3034-3050) (function)
+        - ERC721.tokenURI(uint256) (Maintenance.sol#2589-2594) (function)
+        - IERC721Metadata.tokenURI(uint256) (Maintenance.sol#2493) (function)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#local-variable-shadowing
+
+ComponentsNFT.constructor(address).marketplaceAddress (Maintenance.sol#3170) lacks a zero-check on :
+                - contractAddress = marketplaceAddress (Maintenance.sol#3171)
+Marketplace.BuyNFT(address,uint256,uint256).OEM (Maintenance.sol#3308) lacks a zero-check on :
+                - address(OEM).transfer(msg.value) (Maintenance.sol#3313)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation
+
+Variable 'ERC721._checkOnERC721Received(address,address,uint256,bytes).retval (Maintenance.sol#2932)' in ERC721._checkOnERC721Received(address,address,uint256,bytes) (Maintenance.sol#2925-2947) potentially used before declaration: retval == IERC721Receiver.onERC721Received.selector (Maintenance.sol#2933)
+Variable 'ERC721._checkOnERC721Received(address,address,uint256,bytes).reason (Maintenance.sol#2934)' in ERC721._checkOnERC721Received(address,address,uint256,bytes) (Maintenance.sol#2925-2947) potentially used before declaration: reason.length == 0 (Maintenance.sol#2935)
+Variable 'ERC721._checkOnERC721Received(address,address,uint256,bytes).reason (Maintenance.sol#2934)' in ERC721._checkOnERC721Received(address,address,uint256,bytes) (Maintenance.sol#2925-2947) potentially used before declaration: revert(uint256,uint256)(32 + reason,mload(uint256)(reason)) (Maintenance.sol#2940)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#pre-declaration-usage-of-local-variables
+
+Reentrancy in Marketplace.BuyNFT(address,uint256,uint256) (Maintenance.sol#3308-3317):
+        External calls:
+        - ComponentsNFT(CCs).TransferNFTOwnership(tokenId,msg.sender) (Maintenance.sol#3314)
+        External calls sending eth:
+        - address(OEM).transfer(msg.value) (Maintenance.sol#3313)
+        Event emitted after the call(s):
+        - NFTransferredToNewOwner(OEM,msg.sender,tokenId) (Maintenance.sol#3316)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3
+
+console._sendLogPayload(bytes) (Maintenance.sol#10-17) uses assembly
+        - INLINE ASM (Maintenance.sol#13-16)
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) uses assembly
+        - INLINE ASM (Maintenance.sol#1604-1608)
+        - INLINE ASM (Maintenance.sol#1624-1631)
+        - INLINE ASM (Maintenance.sol#1638-1647)
+Strings.toString(uint256) (Maintenance.sol#1903-1923) uses assembly
+        - INLINE ASM (Maintenance.sol#1909-1911)
+        - INLINE ASM (Maintenance.sol#1915-1917)
+Address._revert(bytes,string) (Maintenance.sol#2216-2228) uses assembly
+        - INLINE ASM (Maintenance.sol#2221-2224)
+ERC721._checkOnERC721Received(address,address,uint256,bytes) (Maintenance.sol#2925-2947) uses assembly
+        - INLINE ASM (Maintenance.sol#2939-2941)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+
+ComponentsNFT.mintNFT(string,uint256,bytes32,uint256,bool) (Maintenance.sol#3190-3205) compares to a boolean constant:
+        -updatable == false (Maintenance.sol#3201)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#boolean-equality
+
+Different versions of Solidity are used:
+        - Version used: ['>=0.4.22<0.9.0', '^0.8.0', '^0.8.1']
+        - >=0.4.22<0.9.0 (Maintenance.sol#5)
+        - ^0.8.0 (Maintenance.sol#1542)
+        - ^0.8.0 (Maintenance.sol#1890)
+        - ^0.8.0 (Maintenance.sol#1962)
+        - ^0.8.1 (Maintenance.sol#1989)
+        - ^0.8.0 (Maintenance.sol#2236)
+        - ^0.8.0 (Maintenance.sol#2266)
+        - ^0.8.0 (Maintenance.sol#2294)
+        - ^0.8.0 (Maintenance.sol#2325)
+        - ^0.8.0 (Maintenance.sol#2472)
+        - ^0.8.0 (Maintenance.sol#2501)
+        - ^0.8.0 (Maintenance.sol#3009)
+        - ^0.8.0 (Maintenance.sol#3117)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+
+Address._revert(bytes,string) (Maintenance.sol#2216-2228) is never used and should be removed
+Address.functionCall(address,bytes) (Maintenance.sol#2070-2072) is never used and should be removed
+Address.functionCall(address,bytes,string) (Maintenance.sol#2080-2086) is never used and should be removed
+Address.functionCallWithValue(address,bytes,uint256) (Maintenance.sol#2099-2105) is never used and should be removed
+Address.functionCallWithValue(address,bytes,uint256,string) (Maintenance.sol#2113-2122) is never used and should be removed
+Address.functionDelegateCall(address,bytes) (Maintenance.sol#2155-2157) is never used and should be removed
+Address.functionDelegateCall(address,bytes,string) (Maintenance.sol#2165-2172) is never used and should be removed
+Address.functionStaticCall(address,bytes) (Maintenance.sol#2130-2132) is never used and should be removed
+Address.functionStaticCall(address,bytes,string) (Maintenance.sol#2140-2147) is never used and should be removed
+Address.sendValue(address,uint256) (Maintenance.sol#2045-2050) is never used and should be removed
+Address.verifyCallResult(bool,bytes,string) (Maintenance.sol#2204-2214) is never used and should be removed
+Address.verifyCallResultFromTarget(address,bool,bytes,string) (Maintenance.sol#2180-2196) is never used and should be removed
+Context._msgData() (Maintenance.sol#1979-1981) is never used and should be removed
+Counters.decrement(Counters.Counter) (Maintenance.sol#3145-3151) is never used and should be removed
+Counters.reset(Counters.Counter) (Maintenance.sol#3153-3155) is never used and should be removed
+ERC721.__unsafe_increaseBalance(address,uint256) (Maintenance.sol#2999-3001) is never used and should be removed
+ERC721._burn(uint256) (Maintenance.sol#2817-2838) is never used and should be removed
+ERC721._safeMint(address,uint256) (Maintenance.sol#2750-2752) is never used and should be removed
+ERC721._safeMint(address,uint256,bytes) (Maintenance.sol#2758-2768) is never used and should be removed
+ERC721URIStorage._burn(uint256) (Maintenance.sol#3098-3104) is never used and should be removed
+Math.average(uint256,uint256) (Maintenance.sol#1572-1575) is never used and should be removed
+Math.ceilDiv(uint256,uint256) (Maintenance.sol#1583-1586) is never used and should be removed
+Math.log10(uint256,Math.Rounding) (Maintenance.sol#1834-1839) is never used and should be removed
+Math.log2(uint256) (Maintenance.sol#1743-1779) is never used and should be removed
+Math.log2(uint256,Math.Rounding) (Maintenance.sol#1785-1790) is never used and should be removed
+Math.log256(uint256) (Maintenance.sol#1847-1871) is never used and should be removed
+Math.log256(uint256,Math.Rounding) (Maintenance.sol#1877-1882) is never used and should be removed
+Math.max(uint256,uint256) (Maintenance.sol#1557-1559) is never used and should be removed
+Math.min(uint256,uint256) (Maintenance.sol#1564-1566) is never used and should be removed
+Math.mulDiv(uint256,uint256,uint256) (Maintenance.sol#1593-1673) is never used and should be removed
+Math.mulDiv(uint256,uint256,uint256,Math.Rounding) (Maintenance.sol#1678-1689) is never used and should be removed
+Math.sqrt(uint256) (Maintenance.sol#1696-1727) is never used and should be removed
+Math.sqrt(uint256,Math.Rounding) (Maintenance.sol#1732-1737) is never used and should be removed
+Strings.toHexString(address) (Maintenance.sol#1952-1954) is never used and should be removed
+Strings.toHexString(uint256) (Maintenance.sol#1928-1932) is never used and should be removed
+Strings.toHexString(uint256,uint256) (Maintenance.sol#1937-1947) is never used and should be removed
+console._sendLogPayload(bytes) (Maintenance.sol#10-17) is never used and should be removed
+console.log() (Maintenance.sol#19-21) is never used and should be removed
+console.log(address) (Maintenance.sol#187-189) is never used and should be removed
+console.log(address,address) (Maintenance.sol#251-253) is never used and should be removed
+console.log(address,address,address) (Maintenance.sol#507-509) is never used and should be removed
+console.log(address,address,address,address) (Maintenance.sol#1531-1533) is never used and should be removed
+console.log(address,address,address,bool) (Maintenance.sol#1527-1529) is never used and should be removed
+console.log(address,address,address,string) (Maintenance.sol#1523-1525) is never used and should be removed
+console.log(address,address,address,uint256) (Maintenance.sol#1519-1521) is never used and should be removed
+console.log(address,address,bool) (Maintenance.sol#503-505) is never used and should be removed
+console.log(address,address,bool,address) (Maintenance.sol#1515-1517) is never used and should be removed
+console.log(address,address,bool,bool) (Maintenance.sol#1511-1513) is never used and should be removed
+console.log(address,address,bool,string) (Maintenance.sol#1507-1509) is never used and should be removed
+console.log(address,address,bool,uint256) (Maintenance.sol#1503-1505) is never used and should be removed
+console.log(address,address,string) (Maintenance.sol#499-501) is never used and should be removed
+console.log(address,address,string,address) (Maintenance.sol#1499-1501) is never used and should be removed
+console.log(address,address,string,bool) (Maintenance.sol#1495-1497) is never used and should be removed
+console.log(address,address,string,string) (Maintenance.sol#1491-1493) is never used and should be removed
+console.log(address,address,string,uint256) (Maintenance.sol#1487-1489) is never used and should be removed
+console.log(address,address,uint256) (Maintenance.sol#495-497) is never used and should be removed
+console.log(address,address,uint256,address) (Maintenance.sol#1483-1485) is never used and should be removed
+console.log(address,address,uint256,bool) (Maintenance.sol#1479-1481) is never used and should be removed
+console.log(address,address,uint256,string) (Maintenance.sol#1475-1477) is never used and should be removed
+console.log(address,address,uint256,uint256) (Maintenance.sol#1471-1473) is never used and should be removed
+console.log(address,bool) (Maintenance.sol#247-249) is never used and should be removed
+console.log(address,bool,address) (Maintenance.sol#491-493) is never used and should be removed
+console.log(address,bool,address,address) (Maintenance.sol#1467-1469) is never used and should be removed
+console.log(address,bool,address,bool) (Maintenance.sol#1463-1465) is never used and should be removed
+console.log(address,bool,address,string) (Maintenance.sol#1459-1461) is never used and should be removed
+console.log(address,bool,address,uint256) (Maintenance.sol#1455-1457) is never used and should be removed
+console.log(address,bool,bool) (Maintenance.sol#487-489) is never used and should be removed
+console.log(address,bool,bool,address) (Maintenance.sol#1451-1453) is never used and should be removed
+console.log(address,bool,bool,bool) (Maintenance.sol#1447-1449) is never used and should be removed
+console.log(address,bool,bool,string) (Maintenance.sol#1443-1445) is never used and should be removed
+console.log(address,bool,bool,uint256) (Maintenance.sol#1439-1441) is never used and should be removed
+console.log(address,bool,string) (Maintenance.sol#483-485) is never used and should be removed
+console.log(address,bool,string,address) (Maintenance.sol#1435-1437) is never used and should be removed
+console.log(address,bool,string,bool) (Maintenance.sol#1431-1433) is never used and should be removed
+console.log(address,bool,string,string) (Maintenance.sol#1427-1429) is never used and should be removed
+console.log(address,bool,string,uint256) (Maintenance.sol#1423-1425) is never used and should be removed
+console.log(address,bool,uint256) (Maintenance.sol#479-481) is never used and should be removed
+console.log(address,bool,uint256,address) (Maintenance.sol#1419-1421) is never used and should be removed
+console.log(address,bool,uint256,bool) (Maintenance.sol#1415-1417) is never used and should be removed
+console.log(address,bool,uint256,string) (Maintenance.sol#1411-1413) is never used and should be removed
+console.log(address,bool,uint256,uint256) (Maintenance.sol#1407-1409) is never used and should be removed
+console.log(address,string) (Maintenance.sol#243-245) is never used and should be removed
+console.log(address,string,address) (Maintenance.sol#475-477) is never used and should be removed
+console.log(address,string,address,address) (Maintenance.sol#1403-1405) is never used and should be removed
+console.log(address,string,address,bool) (Maintenance.sol#1399-1401) is never used and should be removed
+console.log(address,string,address,string) (Maintenance.sol#1395-1397) is never used and should be removed
+console.log(address,string,address,uint256) (Maintenance.sol#1391-1393) is never used and should be removed
+console.log(address,string,bool) (Maintenance.sol#471-473) is never used and should be removed
+console.log(address,string,bool,address) (Maintenance.sol#1387-1389) is never used and should be removed
+console.log(address,string,bool,bool) (Maintenance.sol#1383-1385) is never used and should be removed
+console.log(address,string,bool,string) (Maintenance.sol#1379-1381) is never used and should be removed
+console.log(address,string,bool,uint256) (Maintenance.sol#1375-1377) is never used and should be removed
+console.log(address,string,string) (Maintenance.sol#467-469) is never used and should be removed
+console.log(address,string,string,address) (Maintenance.sol#1371-1373) is never used and should be removed
+console.log(address,string,string,bool) (Maintenance.sol#1367-1369) is never used and should be removed
+console.log(address,string,string,string) (Maintenance.sol#1363-1365) is never used and should be removed
+console.log(address,string,string,uint256) (Maintenance.sol#1359-1361) is never used and should be removed
+console.log(address,string,uint256) (Maintenance.sol#463-465) is never used and should be removed
+console.log(address,string,uint256,address) (Maintenance.sol#1355-1357) is never used and should be removed
+console.log(address,string,uint256,bool) (Maintenance.sol#1351-1353) is never used and should be removed
+console.log(address,string,uint256,string) (Maintenance.sol#1347-1349) is never used and should be removed
+console.log(address,string,uint256,uint256) (Maintenance.sol#1343-1345) is never used and should be removed
+console.log(address,uint256) (Maintenance.sol#239-241) is never used and should be removed
+console.log(address,uint256,address) (Maintenance.sol#459-461) is never used and should be removed
+console.log(address,uint256,address,address) (Maintenance.sol#1339-1341) is never used and should be removed
+console.log(address,uint256,address,bool) (Maintenance.sol#1335-1337) is never used and should be removed
+console.log(address,uint256,address,string) (Maintenance.sol#1331-1333) is never used and should be removed
+console.log(address,uint256,address,uint256) (Maintenance.sol#1327-1329) is never used and should be removed
+console.log(address,uint256,bool) (Maintenance.sol#455-457) is never used and should be removed
+console.log(address,uint256,bool,address) (Maintenance.sol#1323-1325) is never used and should be removed
+console.log(address,uint256,bool,bool) (Maintenance.sol#1319-1321) is never used and should be removed
+console.log(address,uint256,bool,string) (Maintenance.sol#1315-1317) is never used and should be removed
+console.log(address,uint256,bool,uint256) (Maintenance.sol#1311-1313) is never used and should be removed
+console.log(address,uint256,string) (Maintenance.sol#451-453) is never used and should be removed
+console.log(address,uint256,string,address) (Maintenance.sol#1307-1309) is never used and should be removed
+console.log(address,uint256,string,bool) (Maintenance.sol#1303-1305) is never used and should be removed
+console.log(address,uint256,string,string) (Maintenance.sol#1299-1301) is never used and should be removed
+console.log(address,uint256,string,uint256) (Maintenance.sol#1295-1297) is never used and should be removed
+console.log(address,uint256,uint256) (Maintenance.sol#447-449) is never used and should be removed
+console.log(address,uint256,uint256,address) (Maintenance.sol#1291-1293) is never used and should be removed
+console.log(address,uint256,uint256,bool) (Maintenance.sol#1287-1289) is never used and should be removed
+console.log(address,uint256,uint256,string) (Maintenance.sol#1283-1285) is never used and should be removed
+console.log(address,uint256,uint256,uint256) (Maintenance.sol#1279-1281) is never used and should be removed
+console.log(bool) (Maintenance.sol#183-185) is never used and should be removed
+console.log(bool,address) (Maintenance.sol#235-237) is never used and should be removed
+console.log(bool,address,address) (Maintenance.sol#443-445) is never used and should be removed
+console.log(bool,address,address,address) (Maintenance.sol#1275-1277) is never used and should be removed
+console.log(bool,address,address,bool) (Maintenance.sol#1271-1273) is never used and should be removed
+console.log(bool,address,address,string) (Maintenance.sol#1267-1269) is never used and should be removed
+console.log(bool,address,address,uint256) (Maintenance.sol#1263-1265) is never used and should be removed
+console.log(bool,address,bool) (Maintenance.sol#439-441) is never used and should be removed
+console.log(bool,address,bool,address) (Maintenance.sol#1259-1261) is never used and should be removed
+console.log(bool,address,bool,bool) (Maintenance.sol#1255-1257) is never used and should be removed
+console.log(bool,address,bool,string) (Maintenance.sol#1251-1253) is never used and should be removed
+console.log(bool,address,bool,uint256) (Maintenance.sol#1247-1249) is never used and should be removed
+console.log(bool,address,string) (Maintenance.sol#435-437) is never used and should be removed
+console.log(bool,address,string,address) (Maintenance.sol#1243-1245) is never used and should be removed
+console.log(bool,address,string,bool) (Maintenance.sol#1239-1241) is never used and should be removed
+console.log(bool,address,string,string) (Maintenance.sol#1235-1237) is never used and should be removed
+console.log(bool,address,string,uint256) (Maintenance.sol#1231-1233) is never used and should be removed
+console.log(bool,address,uint256) (Maintenance.sol#431-433) is never used and should be removed
+console.log(bool,address,uint256,address) (Maintenance.sol#1227-1229) is never used and should be removed
+console.log(bool,address,uint256,bool) (Maintenance.sol#1223-1225) is never used and should be removed
+console.log(bool,address,uint256,string) (Maintenance.sol#1219-1221) is never used and should be removed
+console.log(bool,address,uint256,uint256) (Maintenance.sol#1215-1217) is never used and should be removed
+console.log(bool,bool) (Maintenance.sol#231-233) is never used and should be removed
+console.log(bool,bool,address) (Maintenance.sol#427-429) is never used and should be removed
+console.log(bool,bool,address,address) (Maintenance.sol#1211-1213) is never used and should be removed
+console.log(bool,bool,address,bool) (Maintenance.sol#1207-1209) is never used and should be removed
+console.log(bool,bool,address,string) (Maintenance.sol#1203-1205) is never used and should be removed
+console.log(bool,bool,address,uint256) (Maintenance.sol#1199-1201) is never used and should be removed
+console.log(bool,bool,bool) (Maintenance.sol#423-425) is never used and should be removed
+console.log(bool,bool,bool,address) (Maintenance.sol#1195-1197) is never used and should be removed
+console.log(bool,bool,bool,bool) (Maintenance.sol#1191-1193) is never used and should be removed
+console.log(bool,bool,bool,string) (Maintenance.sol#1187-1189) is never used and should be removed
+console.log(bool,bool,bool,uint256) (Maintenance.sol#1183-1185) is never used and should be removed
+console.log(bool,bool,string) (Maintenance.sol#419-421) is never used and should be removed
+console.log(bool,bool,string,address) (Maintenance.sol#1179-1181) is never used and should be removed
+console.log(bool,bool,string,bool) (Maintenance.sol#1175-1177) is never used and should be removed
+console.log(bool,bool,string,string) (Maintenance.sol#1171-1173) is never used and should be removed
+console.log(bool,bool,string,uint256) (Maintenance.sol#1167-1169) is never used and should be removed
+console.log(bool,bool,uint256) (Maintenance.sol#415-417) is never used and should be removed
+console.log(bool,bool,uint256,address) (Maintenance.sol#1163-1165) is never used and should be removed
+console.log(bool,bool,uint256,bool) (Maintenance.sol#1159-1161) is never used and should be removed
+console.log(bool,bool,uint256,string) (Maintenance.sol#1155-1157) is never used and should be removed
+console.log(bool,bool,uint256,uint256) (Maintenance.sol#1151-1153) is never used and should be removed
+console.log(bool,string) (Maintenance.sol#227-229) is never used and should be removed
+console.log(bool,string,address) (Maintenance.sol#411-413) is never used and should be removed
+console.log(bool,string,address,address) (Maintenance.sol#1147-1149) is never used and should be removed
+console.log(bool,string,address,bool) (Maintenance.sol#1143-1145) is never used and should be removed
+console.log(bool,string,address,string) (Maintenance.sol#1139-1141) is never used and should be removed
+console.log(bool,string,address,uint256) (Maintenance.sol#1135-1137) is never used and should be removed
+console.log(bool,string,bool) (Maintenance.sol#407-409) is never used and should be removed
+console.log(bool,string,bool,address) (Maintenance.sol#1131-1133) is never used and should be removed
+console.log(bool,string,bool,bool) (Maintenance.sol#1127-1129) is never used and should be removed
+console.log(bool,string,bool,string) (Maintenance.sol#1123-1125) is never used and should be removed
+console.log(bool,string,bool,uint256) (Maintenance.sol#1119-1121) is never used and should be removed
+console.log(bool,string,string) (Maintenance.sol#403-405) is never used and should be removed
+console.log(bool,string,string,address) (Maintenance.sol#1115-1117) is never used and should be removed
+console.log(bool,string,string,bool) (Maintenance.sol#1111-1113) is never used and should be removed
+console.log(bool,string,string,string) (Maintenance.sol#1107-1109) is never used and should be removed
+console.log(bool,string,string,uint256) (Maintenance.sol#1103-1105) is never used and should be removed
+console.log(bool,string,uint256) (Maintenance.sol#399-401) is never used and should be removed
+console.log(bool,string,uint256,address) (Maintenance.sol#1099-1101) is never used and should be removed
+console.log(bool,string,uint256,bool) (Maintenance.sol#1095-1097) is never used and should be removed
+console.log(bool,string,uint256,string) (Maintenance.sol#1091-1093) is never used and should be removed
+console.log(bool,string,uint256,uint256) (Maintenance.sol#1087-1089) is never used and should be removed
+console.log(bool,uint256) (Maintenance.sol#223-225) is never used and should be removed
+console.log(bool,uint256,address) (Maintenance.sol#395-397) is never used and should be removed
+console.log(bool,uint256,address,address) (Maintenance.sol#1083-1085) is never used and should be removed
+console.log(bool,uint256,address,bool) (Maintenance.sol#1079-1081) is never used and should be removed
+console.log(bool,uint256,address,string) (Maintenance.sol#1075-1077) is never used and should be removed
+console.log(bool,uint256,address,uint256) (Maintenance.sol#1071-1073) is never used and should be removed
+console.log(bool,uint256,bool) (Maintenance.sol#391-393) is never used and should be removed
+console.log(bool,uint256,bool,address) (Maintenance.sol#1067-1069) is never used and should be removed
+console.log(bool,uint256,bool,bool) (Maintenance.sol#1063-1065) is never used and should be removed
+console.log(bool,uint256,bool,string) (Maintenance.sol#1059-1061) is never used and should be removed
+console.log(bool,uint256,bool,uint256) (Maintenance.sol#1055-1057) is never used and should be removed
+console.log(bool,uint256,string) (Maintenance.sol#387-389) is never used and should be removed
+console.log(bool,uint256,string,address) (Maintenance.sol#1051-1053) is never used and should be removed
+console.log(bool,uint256,string,bool) (Maintenance.sol#1047-1049) is never used and should be removed
+console.log(bool,uint256,string,string) (Maintenance.sol#1043-1045) is never used and should be removed
+console.log(bool,uint256,string,uint256) (Maintenance.sol#1039-1041) is never used and should be removed
+console.log(bool,uint256,uint256) (Maintenance.sol#383-385) is never used and should be removed
+console.log(bool,uint256,uint256,address) (Maintenance.sol#1035-1037) is never used and should be removed
+console.log(bool,uint256,uint256,bool) (Maintenance.sol#1031-1033) is never used and should be removed
+console.log(bool,uint256,uint256,string) (Maintenance.sol#1027-1029) is never used and should be removed
+console.log(bool,uint256,uint256,uint256) (Maintenance.sol#1023-1025) is never used and should be removed
+console.log(string) (Maintenance.sol#179-181) is never used and should be removed
+console.log(string,address) (Maintenance.sol#219-221) is never used and should be removed
+console.log(string,address,address) (Maintenance.sol#379-381) is never used and should be removed
+console.log(string,address,address,address) (Maintenance.sol#1019-1021) is never used and should be removed
+console.log(string,address,address,bool) (Maintenance.sol#1015-1017) is never used and should be removed
+console.log(string,address,address,string) (Maintenance.sol#1011-1013) is never used and should be removed
+console.log(string,address,address,uint256) (Maintenance.sol#1007-1009) is never used and should be removed
+console.log(string,address,bool) (Maintenance.sol#375-377) is never used and should be removed
+console.log(string,address,bool,address) (Maintenance.sol#1003-1005) is never used and should be removed
+console.log(string,address,bool,bool) (Maintenance.sol#999-1001) is never used and should be removed
+console.log(string,address,bool,string) (Maintenance.sol#995-997) is never used and should be removed
+console.log(string,address,bool,uint256) (Maintenance.sol#991-993) is never used and should be removed
+console.log(string,address,string) (Maintenance.sol#371-373) is never used and should be removed
+console.log(string,address,string,address) (Maintenance.sol#987-989) is never used and should be removed
+console.log(string,address,string,bool) (Maintenance.sol#983-985) is never used and should be removed
+console.log(string,address,string,string) (Maintenance.sol#979-981) is never used and should be removed
+console.log(string,address,string,uint256) (Maintenance.sol#975-977) is never used and should be removed
+console.log(string,address,uint256) (Maintenance.sol#367-369) is never used and should be removed
+console.log(string,address,uint256,address) (Maintenance.sol#971-973) is never used and should be removed
+console.log(string,address,uint256,bool) (Maintenance.sol#967-969) is never used and should be removed
+console.log(string,address,uint256,string) (Maintenance.sol#963-965) is never used and should be removed
+console.log(string,address,uint256,uint256) (Maintenance.sol#959-961) is never used and should be removed
+console.log(string,bool) (Maintenance.sol#215-217) is never used and should be removed
+console.log(string,bool,address) (Maintenance.sol#363-365) is never used and should be removed
+console.log(string,bool,address,address) (Maintenance.sol#955-957) is never used and should be removed
+console.log(string,bool,address,bool) (Maintenance.sol#951-953) is never used and should be removed
+console.log(string,bool,address,string) (Maintenance.sol#947-949) is never used and should be removed
+console.log(string,bool,address,uint256) (Maintenance.sol#943-945) is never used and should be removed
+console.log(string,bool,bool) (Maintenance.sol#359-361) is never used and should be removed
+console.log(string,bool,bool,address) (Maintenance.sol#939-941) is never used and should be removed
+console.log(string,bool,bool,bool) (Maintenance.sol#935-937) is never used and should be removed
+console.log(string,bool,bool,string) (Maintenance.sol#931-933) is never used and should be removed
+console.log(string,bool,bool,uint256) (Maintenance.sol#927-929) is never used and should be removed
+console.log(string,bool,string) (Maintenance.sol#355-357) is never used and should be removed
+console.log(string,bool,string,address) (Maintenance.sol#923-925) is never used and should be removed
+console.log(string,bool,string,bool) (Maintenance.sol#919-921) is never used and should be removed
+console.log(string,bool,string,string) (Maintenance.sol#915-917) is never used and should be removed
+console.log(string,bool,string,uint256) (Maintenance.sol#911-913) is never used and should be removed
+console.log(string,bool,uint256) (Maintenance.sol#351-353) is never used and should be removed
+console.log(string,bool,uint256,address) (Maintenance.sol#907-909) is never used and should be removed
+console.log(string,bool,uint256,bool) (Maintenance.sol#903-905) is never used and should be removed
+console.log(string,bool,uint256,string) (Maintenance.sol#899-901) is never used and should be removed
+console.log(string,bool,uint256,uint256) (Maintenance.sol#895-897) is never used and should be removed
+console.log(string,string) (Maintenance.sol#211-213) is never used and should be removed
+console.log(string,string,address) (Maintenance.sol#347-349) is never used and should be removed
+console.log(string,string,address,address) (Maintenance.sol#891-893) is never used and should be removed
+console.log(string,string,address,bool) (Maintenance.sol#887-889) is never used and should be removed
+console.log(string,string,address,string) (Maintenance.sol#883-885) is never used and should be removed
+console.log(string,string,address,uint256) (Maintenance.sol#879-881) is never used and should be removed
+console.log(string,string,bool) (Maintenance.sol#343-345) is never used and should be removed
+console.log(string,string,bool,address) (Maintenance.sol#875-877) is never used and should be removed
+console.log(string,string,bool,bool) (Maintenance.sol#871-873) is never used and should be removed
+console.log(string,string,bool,string) (Maintenance.sol#867-869) is never used and should be removed
+console.log(string,string,bool,uint256) (Maintenance.sol#863-865) is never used and should be removed
+console.log(string,string,string) (Maintenance.sol#339-341) is never used and should be removed
+console.log(string,string,string,address) (Maintenance.sol#859-861) is never used and should be removed
+console.log(string,string,string,bool) (Maintenance.sol#855-857) is never used and should be removed
+console.log(string,string,string,string) (Maintenance.sol#851-853) is never used and should be removed
+console.log(string,string,string,uint256) (Maintenance.sol#847-849) is never used and should be removed
+console.log(string,string,uint256) (Maintenance.sol#335-337) is never used and should be removed
+console.log(string,string,uint256,address) (Maintenance.sol#843-845) is never used and should be removed
+console.log(string,string,uint256,bool) (Maintenance.sol#839-841) is never used and should be removed
+console.log(string,string,uint256,string) (Maintenance.sol#835-837) is never used and should be removed
+console.log(string,string,uint256,uint256) (Maintenance.sol#831-833) is never used and should be removed
+console.log(string,uint256) (Maintenance.sol#207-209) is never used and should be removed
+console.log(string,uint256,address) (Maintenance.sol#331-333) is never used and should be removed
+console.log(string,uint256,address,address) (Maintenance.sol#827-829) is never used and should be removed
+console.log(string,uint256,address,bool) (Maintenance.sol#823-825) is never used and should be removed
+console.log(string,uint256,address,string) (Maintenance.sol#819-821) is never used and should be removed
+console.log(string,uint256,address,uint256) (Maintenance.sol#815-817) is never used and should be removed
+console.log(string,uint256,bool) (Maintenance.sol#327-329) is never used and should be removed
+console.log(string,uint256,bool,address) (Maintenance.sol#811-813) is never used and should be removed
+console.log(string,uint256,bool,bool) (Maintenance.sol#807-809) is never used and should be removed
+console.log(string,uint256,bool,string) (Maintenance.sol#803-805) is never used and should be removed
+console.log(string,uint256,bool,uint256) (Maintenance.sol#799-801) is never used and should be removed
+console.log(string,uint256,string) (Maintenance.sol#323-325) is never used and should be removed
+console.log(string,uint256,string,address) (Maintenance.sol#795-797) is never used and should be removed
+console.log(string,uint256,string,bool) (Maintenance.sol#791-793) is never used and should be removed
+console.log(string,uint256,string,string) (Maintenance.sol#787-789) is never used and should be removed
+console.log(string,uint256,string,uint256) (Maintenance.sol#783-785) is never used and should be removed
+console.log(string,uint256,uint256) (Maintenance.sol#319-321) is never used and should be removed
+console.log(string,uint256,uint256,address) (Maintenance.sol#779-781) is never used and should be removed
+console.log(string,uint256,uint256,bool) (Maintenance.sol#775-777) is never used and should be removed
+console.log(string,uint256,uint256,string) (Maintenance.sol#771-773) is never used and should be removed
+console.log(string,uint256,uint256,uint256) (Maintenance.sol#767-769) is never used and should be removed
+console.log(uint256) (Maintenance.sol#175-177) is never used and should be removed
+console.log(uint256,address) (Maintenance.sol#203-205) is never used and should be removed
+console.log(uint256,address,address) (Maintenance.sol#315-317) is never used and should be removed
+console.log(uint256,address,address,address) (Maintenance.sol#763-765) is never used and should be removed
+console.log(uint256,address,address,bool) (Maintenance.sol#759-761) is never used and should be removed
+console.log(uint256,address,address,string) (Maintenance.sol#755-757) is never used and should be removed
+console.log(uint256,address,address,uint256) (Maintenance.sol#751-753) is never used and should be removed
+console.log(uint256,address,bool) (Maintenance.sol#311-313) is never used and should be removed
+console.log(uint256,address,bool,address) (Maintenance.sol#747-749) is never used and should be removed
+console.log(uint256,address,bool,bool) (Maintenance.sol#743-745) is never used and should be removed
+console.log(uint256,address,bool,string) (Maintenance.sol#739-741) is never used and should be removed
+console.log(uint256,address,bool,uint256) (Maintenance.sol#735-737) is never used and should be removed
+console.log(uint256,address,string) (Maintenance.sol#307-309) is never used and should be removed
+console.log(uint256,address,string,address) (Maintenance.sol#731-733) is never used and should be removed
+console.log(uint256,address,string,bool) (Maintenance.sol#727-729) is never used and should be removed
+console.log(uint256,address,string,string) (Maintenance.sol#723-725) is never used and should be removed
+console.log(uint256,address,string,uint256) (Maintenance.sol#719-721) is never used and should be removed
+console.log(uint256,address,uint256) (Maintenance.sol#303-305) is never used and should be removed
+console.log(uint256,address,uint256,address) (Maintenance.sol#715-717) is never used and should be removed
+console.log(uint256,address,uint256,bool) (Maintenance.sol#711-713) is never used and should be removed
+console.log(uint256,address,uint256,string) (Maintenance.sol#707-709) is never used and should be removed
+console.log(uint256,address,uint256,uint256) (Maintenance.sol#703-705) is never used and should be removed
+console.log(uint256,bool) (Maintenance.sol#199-201) is never used and should be removed
+console.log(uint256,bool,address) (Maintenance.sol#299-301) is never used and should be removed
+console.log(uint256,bool,address,address) (Maintenance.sol#699-701) is never used and should be removed
+console.log(uint256,bool,address,bool) (Maintenance.sol#695-697) is never used and should be removed
+console.log(uint256,bool,address,string) (Maintenance.sol#691-693) is never used and should be removed
+console.log(uint256,bool,address,uint256) (Maintenance.sol#687-689) is never used and should be removed
+console.log(uint256,bool,bool) (Maintenance.sol#295-297) is never used and should be removed
+console.log(uint256,bool,bool,address) (Maintenance.sol#683-685) is never used and should be removed
+console.log(uint256,bool,bool,bool) (Maintenance.sol#679-681) is never used and should be removed
+console.log(uint256,bool,bool,string) (Maintenance.sol#675-677) is never used and should be removed
+console.log(uint256,bool,bool,uint256) (Maintenance.sol#671-673) is never used and should be removed
+console.log(uint256,bool,string) (Maintenance.sol#291-293) is never used and should be removed
+console.log(uint256,bool,string,address) (Maintenance.sol#667-669) is never used and should be removed
+console.log(uint256,bool,string,bool) (Maintenance.sol#663-665) is never used and should be removed
+console.log(uint256,bool,string,string) (Maintenance.sol#659-661) is never used and should be removed
+console.log(uint256,bool,string,uint256) (Maintenance.sol#655-657) is never used and should be removed
+console.log(uint256,bool,uint256) (Maintenance.sol#287-289) is never used and should be removed
+console.log(uint256,bool,uint256,address) (Maintenance.sol#651-653) is never used and should be removed
+console.log(uint256,bool,uint256,bool) (Maintenance.sol#647-649) is never used and should be removed
+console.log(uint256,bool,uint256,string) (Maintenance.sol#643-645) is never used and should be removed
+console.log(uint256,bool,uint256,uint256) (Maintenance.sol#639-641) is never used and should be removed
+console.log(uint256,string) (Maintenance.sol#195-197) is never used and should be removed
+console.log(uint256,string,address) (Maintenance.sol#283-285) is never used and should be removed
+console.log(uint256,string,address,address) (Maintenance.sol#635-637) is never used and should be removed
+console.log(uint256,string,address,bool) (Maintenance.sol#631-633) is never used and should be removed
+console.log(uint256,string,address,string) (Maintenance.sol#627-629) is never used and should be removed
+console.log(uint256,string,address,uint256) (Maintenance.sol#623-625) is never used and should be removed
+console.log(uint256,string,bool) (Maintenance.sol#279-281) is never used and should be removed
+console.log(uint256,string,bool,address) (Maintenance.sol#619-621) is never used and should be removed
+console.log(uint256,string,bool,bool) (Maintenance.sol#615-617) is never used and should be removed
+console.log(uint256,string,bool,string) (Maintenance.sol#611-613) is never used and should be removed
+console.log(uint256,string,bool,uint256) (Maintenance.sol#607-609) is never used and should be removed
+console.log(uint256,string,string) (Maintenance.sol#275-277) is never used and should be removed
+console.log(uint256,string,string,address) (Maintenance.sol#603-605) is never used and should be removed
+console.log(uint256,string,string,bool) (Maintenance.sol#599-601) is never used and should be removed
+console.log(uint256,string,string,string) (Maintenance.sol#595-597) is never used and should be removed
+console.log(uint256,string,string,uint256) (Maintenance.sol#591-593) is never used and should be removed
+console.log(uint256,string,uint256) (Maintenance.sol#271-273) is never used and should be removed
+console.log(uint256,string,uint256,address) (Maintenance.sol#587-589) is never used and should be removed
+console.log(uint256,string,uint256,bool) (Maintenance.sol#583-585) is never used and should be removed
+console.log(uint256,string,uint256,string) (Maintenance.sol#579-581) is never used and should be removed
+console.log(uint256,string,uint256,uint256) (Maintenance.sol#575-577) is never used and should be removed
+console.log(uint256,uint256) (Maintenance.sol#191-193) is never used and should be removed
+console.log(uint256,uint256,address) (Maintenance.sol#267-269) is never used and should be removed
+console.log(uint256,uint256,address,address) (Maintenance.sol#571-573) is never used and should be removed
+console.log(uint256,uint256,address,bool) (Maintenance.sol#567-569) is never used and should be removed
+console.log(uint256,uint256,address,string) (Maintenance.sol#563-565) is never used and should be removed
+console.log(uint256,uint256,address,uint256) (Maintenance.sol#559-561) is never used and should be removed
+console.log(uint256,uint256,bool) (Maintenance.sol#263-265) is never used and should be removed
+console.log(uint256,uint256,bool,address) (Maintenance.sol#555-557) is never used and should be removed
+console.log(uint256,uint256,bool,bool) (Maintenance.sol#551-553) is never used and should be removed
+console.log(uint256,uint256,bool,string) (Maintenance.sol#547-549) is never used and should be removed
+console.log(uint256,uint256,bool,uint256) (Maintenance.sol#543-545) is never used and should be removed
+console.log(uint256,uint256,string) (Maintenance.sol#259-261) is never used and should be removed
+console.log(uint256,uint256,string,address) (Maintenance.sol#539-541) is never used and should be removed
+console.log(uint256,uint256,string,bool) (Maintenance.sol#535-537) is never used and should be removed
+console.log(uint256,uint256,string,string) (Maintenance.sol#531-533) is never used and should be removed
+console.log(uint256,uint256,string,uint256) (Maintenance.sol#527-529) is never used and should be removed
+console.log(uint256,uint256,uint256) (Maintenance.sol#255-257) is never used and should be removed
+console.log(uint256,uint256,uint256,address) (Maintenance.sol#523-525) is never used and should be removed
+console.log(uint256,uint256,uint256,bool) (Maintenance.sol#519-521) is never used and should be removed
+console.log(uint256,uint256,uint256,string) (Maintenance.sol#515-517) is never used and should be removed
+console.log(uint256,uint256,uint256,uint256) (Maintenance.sol#511-513) is never used and should be removed
+console.logAddress(address) (Maintenance.sol#39-41) is never used and should be removed
+console.logBool(bool) (Maintenance.sol#35-37) is never used and should be removed
+console.logBytes(bytes) (Maintenance.sol#43-45) is never used and should be removed
+console.logBytes1(bytes1) (Maintenance.sol#47-49) is never used and should be removed
+console.logBytes10(bytes10) (Maintenance.sol#83-85) is never used and should be removed
+console.logBytes11(bytes11) (Maintenance.sol#87-89) is never used and should be removed
+console.logBytes12(bytes12) (Maintenance.sol#91-93) is never used and should be removed
+console.logBytes13(bytes13) (Maintenance.sol#95-97) is never used and should be removed
+console.logBytes14(bytes14) (Maintenance.sol#99-101) is never used and should be removed
+console.logBytes15(bytes15) (Maintenance.sol#103-105) is never used and should be removed
+console.logBytes16(bytes16) (Maintenance.sol#107-109) is never used and should be removed
+console.logBytes17(bytes17) (Maintenance.sol#111-113) is never used and should be removed
+console.logBytes18(bytes18) (Maintenance.sol#115-117) is never used and should be removed
+console.logBytes19(bytes19) (Maintenance.sol#119-121) is never used and should be removed
+console.logBytes2(bytes2) (Maintenance.sol#51-53) is never used and should be removed
+console.logBytes20(bytes20) (Maintenance.sol#123-125) is never used and should be removed
+console.logBytes21(bytes21) (Maintenance.sol#127-129) is never used and should be removed
+console.logBytes22(bytes22) (Maintenance.sol#131-133) is never used and should be removed
+console.logBytes23(bytes23) (Maintenance.sol#135-137) is never used and should be removed
+console.logBytes24(bytes24) (Maintenance.sol#139-141) is never used and should be removed
+console.logBytes25(bytes25) (Maintenance.sol#143-145) is never used and should be removed
+console.logBytes26(bytes26) (Maintenance.sol#147-149) is never used and should be removed
+console.logBytes27(bytes27) (Maintenance.sol#151-153) is never used and should be removed
+console.logBytes28(bytes28) (Maintenance.sol#155-157) is never used and should be removed
+console.logBytes29(bytes29) (Maintenance.sol#159-161) is never used and should be removed
+console.logBytes3(bytes3) (Maintenance.sol#55-57) is never used and should be removed
+console.logBytes30(bytes30) (Maintenance.sol#163-165) is never used and should be removed
+console.logBytes31(bytes31) (Maintenance.sol#167-169) is never used and should be removed
+console.logBytes32(bytes32) (Maintenance.sol#171-173) is never used and should be removed
+console.logBytes4(bytes4) (Maintenance.sol#59-61) is never used and should be removed
+console.logBytes5(bytes5) (Maintenance.sol#63-65) is never used and should be removed
+console.logBytes6(bytes6) (Maintenance.sol#67-69) is never used and should be removed
+console.logBytes7(bytes7) (Maintenance.sol#71-73) is never used and should be removed
+console.logBytes8(bytes8) (Maintenance.sol#75-77) is never used and should be removed
+console.logBytes9(bytes9) (Maintenance.sol#79-81) is never used and should be removed
+console.logInt(int256) (Maintenance.sol#23-25) is never used and should be removed
+console.logString(string) (Maintenance.sol#31-33) is never used and should be removed
+console.logUint(uint256) (Maintenance.sol#27-29) is never used and should be removed
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dead-code
+
+Pragma version>=0.4.22<0.9.0 (Maintenance.sol#5) is too complex
+Pragma version^0.8.0 (Maintenance.sol#1542) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#1890) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#1962) allows old versions
+Pragma version^0.8.1 (Maintenance.sol#1989) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#2236) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#2266) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#2294) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#2325) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#2472) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#2501) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#3009) allows old versions
+Pragma version^0.8.0 (Maintenance.sol#3117) allows old versions
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+
+Low level call in Address.sendValue(address,uint256) (Maintenance.sol#2045-2050):
+        - (success) = recipient.call{value: amount}() (Maintenance.sol#2048)
+Low level call in Address.functionCallWithValue(address,bytes,uint256,string) (Maintenance.sol#2113-2122):
+        - (success,returndata) = target.call{value: value}(data) (Maintenance.sol#2120)
+Low level call in Address.functionStaticCall(address,bytes,string) (Maintenance.sol#2140-2147):
+        - (success,returndata) = target.staticcall(data) (Maintenance.sol#2145)
+Low level call in Address.functionDelegateCall(address,bytes,string) (Maintenance.sol#2165-2172):
+        - (success,returndata) = target.delegatecall(data) (Maintenance.sol#2170)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+
+Contract console (Maintenance.sol#7-1535) is not in CapWords
+Function ERC721.__unsafe_increaseBalance(address,uint256) (Maintenance.sol#2999-3001) is not in mixedCase
+Variable ERC721URIStorage.idToMetadata_updatable (Maintenance.sol#3025) is not in mixedCase
+Function ComponentsNFT.TransferNFTOwnership(uint256,address) (Maintenance.sol#3208-3212) is not in mixedCase
+Function ComponentsNFT.UpdateDynamicNFTstatus(uint256,uint256) (Maintenance.sol#3215-3218) is not in mixedCase
+Function Marketplace.RegisterOEM(address) (Maintenance.sol#3265-3268) is not in mixedCase
+Function Marketplace.RevokeOEM(address) (Maintenance.sol#3270-3272) is not in mixedCase
+Function Marketplace.RegisteredOEM(address) (Maintenance.sol#3274-3276) is not in mixedCase
+Function Marketplace.RegisterFM(address) (Maintenance.sol#3278-3280) is not in mixedCase
+Function Marketplace.RevokeFM(address) (Maintenance.sol#3282-3284) is not in mixedCase
+Function Marketplace.RegisteredFM(address) (Maintenance.sol#3286-3289) is not in mixedCase
+Function Marketplace.RegisterOracle(address) (Maintenance.sol#3291-3293) is not in mixedCase
+Function Marketplace.RegisteredOracle(address) (Maintenance.sol#3295-3297) is not in mixedCase
+Function Marketplace.RevokeOracle(address) (Maintenance.sol#3298-3300) is not in mixedCase
+Parameter Marketplace.addChildren(address,address).OEM (Maintenance.sol#3302) is not in mixedCase
+Parameter Marketplace.addChildren(address,address).OEMContract (Maintenance.sol#3302) is not in mixedCase
+Function Marketplace.BuyNFT(address,uint256,uint256) (Maintenance.sol#3308-3317) is not in mixedCase
+Parameter Marketplace.BuyNFT(address,uint256,uint256).OEM (Maintenance.sol#3308) is not in mixedCase
+Function Marketplace.UpdateDynamicNFTstatus(uint256,uint256,address) (Maintenance.sol#3321-3324) is not in mixedCase
+Variable Marketplace.RegisteredOracles (Maintenance.sol#3226) is not in mixedCase
+Variable Marketplace.RegisteredOEMs (Maintenance.sol#3227) is not in mixedCase
+Variable Marketplace.RegisteredFMs (Maintenance.sol#3228) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+
+Reentrancy in Marketplace.BuyNFT(address,uint256,uint256) (Maintenance.sol#3308-3317):
+        External calls:
+        - address(OEM).transfer(msg.value) (Maintenance.sol#3313)
+        Event emitted after the call(s):
+        - NFTransferredToNewOwner(OEM,msg.sender,tokenId) (Maintenance.sol#3316)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-4
+Maintenance.sol analyzed (15 contracts with 81 detectors), 479 result(s) found
